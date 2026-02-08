@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Doctor Dashboard</title>
+<link rel="stylesheet" href="/static/styles.css">
+<link rel="icon" type="image/x-icon" href="/static/favicon.png">
+</head>
+
+<body class="medsys-body">
+
+<div class="medsys-app">
+
+    <!-- Header -->
+    <header class="medsys-header">
+        <div class="medsys-doc">
+            <div class="medsys-doc-avatar">🩺</div>
+            <div class="medsys-doc-info">
+                <h1 class="medsys-doc-name">{{ user.name }}</h1>
+                <p class="medsys-doc-spec">{{ user.specialty }}</p>
+            </div>
+        </div>
+
+        <div class="medsys-center">
+            <div class="medsys-availability">
+                <span class="status-label">Available</span>
+                <span class="status-dot {% if user.is_available %}online{% else %}offline{% endif %}" data-text="{% if user.is_available %}Online{% else %}Offline{% endif %}">
+                    {% if user.is_available %}&#10004;{% else %}&#10006;{% endif %}
+                    </span>
+            {% if user.is_available %}
+                <form method="post" action="/update_availability">
+                    <input type="hidden" name="email" value="{{ user.email }}">
+                    <input type="hidden" name="status" value="false">
+                    <button class="availability-btn on">Turn Off</button>
+                </form>
+            {% else %}
+                <form method="post" action="/update_availability">
+                    <input type="hidden" name="email" value="{{ user.email }}">
+                    <input type="hidden" name="status" value="true">
+                    <button class="availability-btn off">Turn On</button>
+                </form>
+            {% endif %}
+            </div>
+        </div>
+
+        <a href="/logout" class="medsys-logout">Logout</a>
+        <style>
+          *{
+              box-sizing:border-box;
+              margin:0;
+              padding:0;
+              font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+          }
+
+        </style>
+    </header>
+
+    <!-- Main Panel -->
+    <main class="medsys-panel">
+
+        <div class="medsys-panel-head">
+            <h2 class="medsys-title">Assigned Patients</h2>
+            <span class="medsys-subtitle">Medical Records & Monitoring</span>
+        </div>
+
+        <section class="medsys-patient-grid">
+            {% for patient in patients %}
+            <a href="/patient/info/{{ patient.email }}" class="medsys-patient-card">
+
+                <div class="medsys-card-top">
+                    <div class="medsys-avatar">{{ patient.name[0] }}</div>
+                    <div class="medsys-pname">{{ patient.name }}</div>
+                </div>
+
+                <div class="medsys-card-body">
+                    <p><span>Email:</span> {{ patient.email }}</p>
+                    <p><span>Risk Level:</span> {{ patient.risk_category }}</p>
+                </div>
+
+                <div class="medsys-card-action">
+                    Open Profile →
+                </div>
+
+            </a>
+            {% else %}
+            <div class="medsys-empty">
+                No patients assigned yet.
+            </div>
+            {% endfor %}
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

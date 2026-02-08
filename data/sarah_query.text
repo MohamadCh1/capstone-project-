@@ -1,0 +1,626 @@
+######## HBA1C
+INSERT INTO measurements 
+(patient_email, device_serial, type, value, unit, ts, raw_payload)
+VALUES
+(
+ 'Sarah.johnson@gmail.com',
+ 'HBA1C-562193',
+ 'HBA1C',
+ 7.2,
+ '%',
+ NOW() - INTERVAL '5 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','HBA1C',
+     'model','Afinion 2 Analyzer',
+     'is_active',true,
+     'manufacturer','Abbott',
+     'serial_number','HBA1C-562193'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','%',
+     'value',7.2,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '5 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'HBA1C-562193',
+ 'HBA1C',
+ 7.4,
+ '%',
+ NOW() - INTERVAL '4 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','HBA1C',
+     'model','Afinion 2 Analyzer',
+     'is_active',true,
+     'manufacturer','Abbott',
+     'serial_number','HBA1C-562193'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','%',
+     'value',7.4,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '4 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'HBA1C-562193',
+ 'HBA1C',
+ 7.5,
+ '%',
+ NOW() - INTERVAL '3 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','HBA1C',
+     'model','Afinion 2 Analyzer',
+     'is_active',true,
+     'manufacturer','Abbott',
+     'serial_number','HBA1C-562193'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','%',
+     'value',7.5,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '3 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'HBA1C-562193',
+ 'HBA1C',
+ 7.3,
+ '%',
+ NOW() - INTERVAL '2 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','HBA1C',
+     'model','Afinion 2 Analyzer',
+     'is_active',true,
+     'manufacturer','Abbott',
+     'serial_number','HBA1C-562193'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','%',
+     'value',7.3,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '2 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'HBA1C-562193',
+ 'HBA1C',
+ 7.6,
+ '%',
+ NOW() - INTERVAL '1 day',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','HBA1C',
+     'model','Afinion 2 Analyzer',
+     'is_active',true,
+     'manufacturer','Abbott',
+     'serial_number','HBA1C-562193'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','%',
+     'value',7.6,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '1 day'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'HBA1C-562193',
+ 'HBA1C',
+ 7.4,
+ '%',
+ NOW(),
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','HBA1C',
+     'model','Afinion 2 Analyzer',
+     'is_active',true,
+     'manufacturer','Abbott',
+     'serial_number','HBA1C-562193'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','%',
+     'value',7.4,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW()
+   )
+ )
+);
+
+
+ ######## Glucose 
+INSERT INTO measurements 
+(patient_email, device_serial, type, value, unit, ts, raw_payload)
+VALUES
+(
+ 'Sarah.johnson@gmail.com',
+ 'GLU-774512',
+ 'Glucose',
+ 165,
+ 'mg/dL',
+ NOW() - INTERVAL '5 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','Glucose',
+     'model','Dexcom G7',
+     'is_active',true,
+     'manufacturer','Dexcom',
+     'serial_number','GLU-774512'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mg/dL',
+     'value',165,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '5 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'GLU-774512',
+ 'Glucose',
+ 172,
+ 'mg/dL',
+ NOW() - INTERVAL '4 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','Glucose',
+     'model','Dexcom G7',
+     'is_active',true,
+     'manufacturer','Dexcom',
+     'serial_number','GLU-774512'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mg/dL',
+     'value',172,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '4 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'GLU-774512',
+ 'Glucose',
+ 180,
+ 'mg/dL',
+ NOW() - INTERVAL '3 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','Glucose',
+     'model','Dexcom G7',
+     'is_active',true,
+     'manufacturer','Dexcom',
+     'serial_number','GLU-774512'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mg/dL',
+     'value',180,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '3 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'GLU-774512',
+ 'Glucose',
+ 158,
+ 'mg/dL',
+ NOW() - INTERVAL '2 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','Glucose',
+     'model','Dexcom G7',
+     'is_active',true,
+     'manufacturer','Dexcom',
+     'serial_number','GLU-774512'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mg/dL',
+     'value',158,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '2 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'GLU-774512',
+ 'Glucose',
+ 169,
+ 'mg/dL',
+ NOW() - INTERVAL '1 day',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','Glucose',
+     'model','Dexcom G7',
+     'is_active',true,
+     'manufacturer','Dexcom',
+     'serial_number','GLU-774512'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mg/dL',
+     'value',169,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '1 day'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'GLU-774512',
+ 'Glucose',
+ 175,
+ 'mg/dL',
+ NOW(),
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','Glucose',
+     'model','Dexcom G7',
+     'is_active',true,
+     'manufacturer','Dexcom',
+     'serial_number','GLU-774512'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mg/dL',
+     'value',175,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW()
+   )
+ )
+);
+
+
+
+######### SBP
+INSERT INTO measurements 
+(patient_email, device_serial, type, value, unit, ts, raw_payload)
+VALUES
+(
+ 'Sarah.johnson@gmail.com',
+ 'BP-229845',
+ 'SBP',
+ 138,
+ 'mmHg',
+ NOW() - INTERVAL '5 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','SBP',
+     'model','BPM Connect',
+     'is_active',true,
+     'manufacturer','Withings',
+     'serial_number','BP-229845'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mmHg',
+     'value',138,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '5 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BP-229845',
+ 'SBP',
+ 142,
+ 'mmHg',
+ NOW() - INTERVAL '4 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','SBP',
+     'model','BPM Connect',
+     'is_active',true,
+     'manufacturer','Withings',
+     'serial_number','BP-229845'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mmHg',
+     'value',142,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '4 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BP-229845',
+ 'SBP',
+ 135,
+ 'mmHg',
+ NOW() - INTERVAL '3 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','SBP',
+     'model','BPM Connect',
+     'is_active',true,
+     'manufacturer','Withings',
+     'serial_number','BP-229845'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mmHg',
+     'value',135,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '3 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BP-229845',
+ 'SBP',
+ 140,
+ 'mmHg',
+ NOW() - INTERVAL '2 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','SBP',
+     'model','BPM Connect',
+     'is_active',true,
+     'manufacturer','Withings',
+     'serial_number','BP-229845'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mmHg',
+     'value',140,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '2 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BP-229845',
+ 'SBP',
+ 145,
+ 'mmHg',
+ NOW() - INTERVAL '1 day',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','SBP',
+     'model','BPM Connect',
+     'is_active',true,
+     'manufacturer','Withings',
+     'serial_number','BP-229845'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mmHg',
+     'value',145,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '1 day'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BP-229845',
+ 'SBP',
+ 137,
+ 'mmHg',
+ NOW(),
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','SBP',
+     'model','BPM Connect',
+     'is_active',true,
+     'manufacturer','Withings',
+     'serial_number','BP-229845'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','mmHg',
+     'value',137,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW()
+   )
+ )
+);
+
+
+
+
+####### BMI 
+
+INSERT INTO measurements 
+(patient_email, device_serial, type, value, unit, ts, raw_payload)
+VALUES
+(
+ 'Sarah.johnson@gmail.com',
+ 'BMI-983472',
+ 'BMI',
+ 29.1,
+ 'kg/m²',
+ NOW() - INTERVAL '5 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','BMI',
+     'model','HBF-306',
+     'is_active',true,
+     'manufacturer','Omron',
+     'serial_number','BMI-983472'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','kg/m²',
+     'value',29.1,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '5 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BMI-983472',
+ 'BMI',
+ 28.7,
+ 'kg/m²',
+ NOW() - INTERVAL '4 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','BMI',
+     'model','HBF-306',
+     'is_active',true,
+     'manufacturer','Omron',
+     'serial_number','BMI-983472'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','kg/m²',
+     'value',28.7,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '4 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BMI-983472',
+ 'BMI',
+ 30.2,
+ 'kg/m²',
+ NOW() - INTERVAL '3 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','BMI',
+     'model','HBF-306',
+     'is_active',true,
+     'manufacturer','Omron',
+     'serial_number','BMI-983472'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','kg/m²',
+     'value',30.2,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '3 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BMI-983472',
+ 'BMI',
+ 29.5,
+ 'kg/m²',
+ NOW() - INTERVAL '2 days',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','BMI',
+     'model','HBF-306',
+     'is_active',true,
+     'manufacturer','Omron',
+     'serial_number','BMI-983472'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','kg/m²',
+     'value',29.5,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '2 days'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BMI-983472',
+ 'BMI',
+ 30.8,
+ 'kg/m²',
+ NOW() - INTERVAL '1 day',
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','BMI',
+     'model','HBF-306',
+     'is_active',true,
+     'manufacturer','Omron',
+     'serial_number','BMI-983472'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','kg/m²',
+     'value',30.8,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW() - INTERVAL '1 day'
+   )
+ )
+),
+(
+ 'Sarah.johnson@gmail.com',
+ 'BMI-983472',
+ 'BMI',
+ 29.9,
+ 'kg/m²',
+ NOW(),
+ jsonb_build_object(
+   'device', jsonb_build_object(
+     'type','BMI',
+     'model','HBF-306',
+     'is_active',true,
+     'manufacturer','Omron',
+     'serial_number','BMI-983472'
+   ),
+   'patient', jsonb_build_object('email','Sarah.johnson@gmail.com'),
+   'measurement', jsonb_build_object(
+     'unit','kg/m²',
+     'value',29.9,
+     'source','auto_sync',
+     'status','ok',
+     'timestamp', NOW()
+   )
+ )
+);

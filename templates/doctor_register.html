@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Registration</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Register Doctor</h1>
+
+        {% if error %}
+        <div style="color: red; font-weight: bold;">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if message %}
+        <div style="color: green; font-weight: bold;">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <form action="/doctor/register" method="post">
+            <label>Email:</label>
+            <input type="text" name="email">
+
+            <label>Name:</label>
+            <input type="text" name="name">
+
+            <label for="specialty">Specialty:</label>
+            <select name="specialty" id="specialty" required>
+            <option value="">-- Select Specialty --</option>
+            <option value="endocrinology">Endocrinology</option>
+            <option value="diabetology">Diabetology</option>
+            <option value="primary_care">Primary Care</option>
+            <option value="ophthalmology">Ophthalmology</option>
+            <option value="podiatry">Podiatry</option>
+            <option value="nephrology">Nephrology</option>
+            </select>
+
+            <label>License Number:</label>
+            <input type="text" name="license_number">
+
+            <label>Monthly Rate:</label>
+            <input type="number" step="0.01" name="monthly_rate">
+
+            <label>Password:</label>
+            <input type="password" name="password">
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/patient/register" class="switch-link">Register as a Patient Instead</a>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/home" class="switch-link">Go back to the Home Page!</a>
+        </div>
+    </div>
+</body>
+</html>

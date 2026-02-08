@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes AI Care Platform</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                url('/static/images/background.jpg');
+            background-size:cover;
+            background-position:top;
+            background-repeat: no-repeat;
+            height: 89vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay {
+            background: rgba(18, 20, 23, 0.7); 
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            color: #e0f7fa;
+            max-width: 800px;
+        }
+
+        .overlay h1 {
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .overlay p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #cfe3e3;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            background: #00796b; 
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #004d40; 
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <h1>Welcome to Your Diabetes AI Care Journey</h1>
+        <p>
+            Our agentic AI platform helps predict, monitor, and guide your diabetes treatment journey. 
+            Suggestions are tracked, monitored, and validated with doctor acceptance for safe, personalized care.
+        </p>
+        <div class="nav-links">
+            <a href="/doctor/login">Doctor Login</a>
+            <a href="/doctor/register">Doctor Register</a>
+            <a href="/patient/login">Patient Login</a>
+            <a href="/patient/register">Patient Register</a>
+        </div>
+    </div>
+</body>
+</html>

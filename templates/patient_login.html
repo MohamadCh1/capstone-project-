@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Patient Login</h1>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if message %}
+        <div class="message">{{ message }}</div>
+        {% endif %}
+
+        <form action="/patient/login" method="post">
+            <label for="email">Patient Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/doctor/login" class="switch-link">Login as a Doctor Instead</a>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/home" class="switch-link">Go back to the Home Page!</a>
+        </div>
+    </div>
+</body>
+</html>

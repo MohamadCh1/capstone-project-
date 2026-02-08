@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Patient Medical Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" type="image/x-icon" href="/static/favicon.png">
+<style>
+/* ================== PATIENT PAGE EXTENSIONS ================== */
+/* Header */
+.medsys-patient-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 32px;
+    border-radius:22px;
+    background:rgba(20,25,30,0.85);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 18px 60px rgba(0,0,0,0.8);
+    margin-bottom:30px;
+}
+
+/* Patient Info */
+.medsys-patient-info{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.medsys-patient-info span{
+    color:#00e5ff;
+    font-weight:700;
+}
+
+.medsys-patient-info p{
+    margin:0;
+    color:#e0f7fa;
+    font-weight:600;
+}
+
+/* Suggestions */
+.medsys-suggestion-box{
+    margin-bottom:30px;
+    padding:28px;
+    border-radius:26px;
+    background:rgba(18,22,26,0.85);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 25px 70px rgba(0,0,0,0.85);
+    position:relative;
+    overflow:hidden;
+}
+
+.medsys-suggestion-box::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.06),transparent);
+    opacity:0;
+    transition:0.4s;
+    pointer-events: none;
+}
+.medsys-suggestion-box:hover::after{opacity:1;}
+
+.medsys-suggestion-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.medsys-suggestion-title{
+    font-size:22px;
+    font-weight:800;
+    color:#e0f7fa;
+}
+
+/* Priority */
+.medsys-priority{
+    padding:7px 16px;
+    border-radius:14px;
+    font-weight:900;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.priority-high{
+    background:linear-gradient(135deg,#ff1744,#d50000);
+    color:white;
+    box-shadow:0 0 18px rgba(255,23,68,0.7);
+}
+.priority-medium{
+    background:linear-gradient(135deg,#ffb300,#ff6f00);
+    color:#1a1a1a;
+}
+.priority-low{
+    background:linear-gradient(135deg,#00e5ff,#00bfa5);
+    color:#00363a;
+}
+
+/* Body */
+.medsys-suggestion-body{
+    color:#cfd8dc;
+    font-size:15px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+/* Status */
+.medsys-suggestion-status{
+    margin-bottom:18px;
+    font-weight:800;
+    font-size:14px;
+}
+
+.status-active{ color:#00e676; }
+.status-proposed{ color:#ffea00; }
+.status-stopped{ color:#ff5252; }
+.status-rejected{ color:#90a4ae; }
+
+/* Actions */
+.medsys-suggestion-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.medsys-btn{
+    padding:12px 24px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    font-weight:900;
+    font-size:13px;
+    letter-spacing:0.5px;
+    transition:0.3s;
+}
+
+.btn-activate{
+    background:linear-gradient(135deg,#00e5ff,#00bfa5);
+    color:#00363a;
+    box-shadow:0 0 22px rgba(0,229,255,0.6);
+}
+.btn-stop{
+    background:linear-gradient(135deg,#ff5252,#ff1744);
+    color:white;
+    box-shadow:0 0 22px rgba(255,82,82,0.6);
+}
+.btn-reject{
+    background:linear-gradient(135deg,#b0bec5,#78909c);
+    color:#000;
+}
+
+.btn-activate:hover,
+.btn-stop:hover,
+.btn-reject:hover{
+    transform:scale(1.08);
+    filter:brightness(1.1);
+}
+
+/* Charts */
+.medsys-chart-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(360px,1fr));
+    gap:28px;
+}
+
+.medsys-chart-box{
+    aspect-ratio:4/3;
+    padding:18px;
+    border-radius:26px;
+    background:rgba(18,22,26,0.85);
+    backdrop-filter: blur(16px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 20px 60px rgba(0,0,0,0.85);
+}
+
+canvas{width:100%!important;height:100%!important;}
+
+/* Empty */
+.medsys-empty-box{
+    padding:40px;
+    border-radius:26px;
+    background:rgba(18,22,26,0.85);
+    backdrop-filter: blur(16px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 20px 60px rgba(0,0,0,0.85);
+}
+.medsys-body{
+    background: linear-gradient(180deg,#1e2a32,#18242b);
+}
+.medsys-logout {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.medsys-logout:first-of-type {
+  background-color: #444;       /* Neutral for Back */
+  color: #fff;
+}
+
+.medsys-logout:first-of-type:hover {
+  background-color: #666;
+}
+
+.medsys-logout:last-of-type {
+  background-color: #d9534f;    /* Red for Logout */
+  color: #fff;
+}
+
+.medsys-logout:last-of-type:hover {
+  background-color: #c9302c;
+}
+</style>
+</head>
+
+<body class="medsys-body">
+<div class="medsys-app">
+
+<!-- ================= HEADER ================= -->
+<div class="medsys-patient-header">
+    <div class="medsys-patient-info">
+        <p><span>Patient:</span> {{ patient.name }}</p>
+        {% if prediction_data%}
+            <p><span>Diabetes Risk:</span> {{ prediction_data.probability *100 }}%</p>
+            <p><span>Category:</span> {{ prediction_data.category }}</p>
+        {% endif %}
+    </div>
+
+    <div style="display:flex;gap:12px;">
+        <a href="/dashboard" class="medsys-logout">Back</a>
+        <a href="/logout" class="medsys-logout">Logout</a>
+    </div>
+</div>
+
+<!-- ================= AI SUGGESTIONS (PRIORITY) ================= -->
+{% if suggestions %}
+{% for s in suggestions %}
+
+<div class="medsys-suggestion-box">
+
+    <div class="medsys-suggestion-head">
+        <div class="medsys-suggestion-title">AI Medical Suggestion</div>
+
+        <div class="medsys-priority 
+        {% if s.priority == 'high' %}priority-high
+        {% elif s.priority == 'medium' %}priority-medium
+        {% else %}priority-low{% endif %}">
+            {{ s.priority }}
+        </div>
+    </div>
+
+    <div class="medsys-suggestion-body">
+        {{ s.details.text }}
+    </div>
+
+    <div class="medsys-suggestion-status 
+        {% if s.status == 'active' %}status-active
+        {% elif s.status == 'proposed' %}status-proposed
+        {% elif s.status == 'stopped' %}status-stopped
+        {% elif s.status == 'rejected' %}status-rejected{% endif %}">
+        Current Status: {{ s.status }}
+    </div>
+
+    <div class="medsys-suggestion-actions">
+
+        {% if s.status == 'active' %}
+            <form method="post" action="/suggestions/update_status">
+                <input type="hidden" name="id" value="{{ s.id }}">
+                <input type="hidden" name="email" value="{{ s.patient_email }}">
+                <input type="hidden" name="status" value="stopped">
+                <button class="medsys-btn btn-stop">Stop</button>
+            </form>
+
+        {% elif s.status == 'proposed' %}
+            <form method="post" action="/suggestions/update_status">
+                <input type="hidden" name="id" value="{{ s.id }}">
+                <input type="hidden" name="email" value="{{ s.patient_email }}">
+                <input type="hidden" name="status" value="active">
+                <button type="submit" class="medsys-btn btn-activate">Activate</button>
+            </form>
+
+            <form method="post" action="/suggestions/update_status_to_reject">
+                <input type="hidden" name="id" value="{{ s.id }}">
+                <input type="hidden" name="email" value="{{ s.patient_email }}">
+                <input type="hidden" name="status" value="rejected">
+                <button type="submit" class="medsys-btn btn-reject">Reject</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endfor %}
+{% endif %}
+
+<!-- ================= MEASUREMENTS ================= -->
+{% if patient_measurement_data %}
+
+<div class="medsys-chart-grid">
+    <div class="medsys-chart-box"><canvas id="bmiChart"></canvas></div>
+    <div class="medsys-chart-box"><canvas id="hba1cChart"></canvas></div>
+    <div class="medsys-chart-box"><canvas id="glucoseChart"></canvas></div>
+    <div class="medsys-chart-box"><canvas id="sbpChart"></canvas></div>
+</div>
+
+<script>
+const bmiData = {{ bmi_data | safe }};
+const hba1cData = {{ hba1c_data | safe }};
+const glucoseData = {{ glucose_data | safe }};
+const sbpData = {{ sbp_data | safe }};
+
+function renderChart(id,data){
+new Chart(document.getElementById(id),{
+type:'line',
+data:data,
+options:{
+responsive:true,
+maintainAspectRatio:false,
+plugins:{legend:{labels:{color:'#e0f7fa'}}},
+scales:{
+x:{ticks:{color:'#80deea'}},
+y:{ticks:{color:'#80deea'}}
+}
+}
+});
+}
+
+renderChart("bmiChart",bmiData);
+renderChart("hba1cChart",hba1cData);
+renderChart("glucoseChart",glucoseData);
+renderChart("sbpChart",sbpData);
+</script>
+
+{% else %}
+
+<div class="medsys-empty-box">
+    <h2 class="medsys-title" style="color: white;">No Data Available</h2>
+    <p class="medsys-subtitle" style="color: white;">
+        We are still collecting medical data from {{ patient.name }}'s connected devices.  
+        AI predictions and medical insights will appear here automatically.
+    </p>
+</div>
+
+{% endif %}
+
+</div>
+</body>
+</html>
