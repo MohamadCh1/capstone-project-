@@ -3,9 +3,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.status import HTTP_303_SEE_OTHER
 from sqlalchemy import text
 from fastapi.templating import Jinja2Templates
+from backend.database import get_mysql_session
 from fastapi.responses import RedirectResponse
 from backend.repositories.suggestion_repo import MySQLSuggestionsRepo
-from backend.database import get_mysql_session
+
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
@@ -23,7 +24,7 @@ async def update_suggestion_status(
 
     repo = MySQLSuggestionsRepo(mysql)
     await repo.update_status(id, status)  
-    return RedirectResponse(url=f"/patient/{email}", status_code=HTTP_303_SEE_OTHER)
+    return RedirectResponse(url=f"/dashboard", status_code=HTTP_303_SEE_OTHER)
 
 @router.post("/suggestions/update_status_to_reject")
 async def update_suggestion_status(
@@ -38,4 +39,4 @@ async def update_suggestion_status(
 
     repo = MySQLSuggestionsRepo(mysql)
     await repo.update_status(id, status)  
-    return RedirectResponse(url=f"/patient/info/{email}", status_code=HTTP_303_SEE_OTHER)
+    return RedirectResponse(url=f"/dashboard", status_code=HTTP_303_SEE_OTHER)

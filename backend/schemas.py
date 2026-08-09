@@ -11,6 +11,10 @@ class DoctorCreate(BaseModel):
     monthly_rate: float = Field(..., gt=0)
     password: str
 
+class DeviceChange(BaseModel):
+    manufacturer: str
+    model: str
+    serial: SerialNumber
 
 class PatientCreate(BaseModel):
     email: EmailStr

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Device</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+    <link rel="stylesheet" href="/static/css/device_change.css">
+</head>
+
+<body class="device-change-page">
+
+<div class="device-change-container">
+
+    <!-- Header -->
+    <div class="device-change-header">
+        <h1>Change Device</h1>
+        <p>Update patient IoT device information</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="device-change-card">
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if message %}
+        <div class="message">{{ message }}</div>
+        {% endif %}
+
+        <form class="device-change-form" method="POST" action="/device_change/{{device_type}}">
+
+            <div class="device-change-field">
+                <label for="serial">Serial Number</label>
+                <input type="text" id="serial" name="serial_number" placeholder="Enter device serial number" required>
+            </div>
+
+            <div class="device-change-field">
+                <label for="manufacturer">Manufacturer</label>
+                <input type="text" id="manufacturer" name="manufacturer" placeholder="e.g. Abbott, Dexcom" required>
+            </div>
+
+            <div class="device-change-field">
+                <label for="model">Model</label>
+                <input type="text" id="model" name="model" placeholder="e.g. Libre 3, G6" required>
+            </div>
+
+            <button type="submit" class="device-change-submit-button">
+                Update Device
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

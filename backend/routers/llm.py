@@ -27,6 +27,7 @@ async def ask_ai(message: str = Form(...)):
     Answer clearly, simply, and safely Just On the Diabetes Related Questions.
     You should not provide any information that is not related to diabetes. If the question is not related to diabetes, politely decline to answer and suggest asking a diabetes-related question instead but in a good beautiful way.
     reply to Hi and Hello with a nice greeting but also ask if they have any diabetes-related questions
+    Diabetes Related question include lab test related to diabetes and diabetes symtomps 
     User: {message}
     AI:
     """

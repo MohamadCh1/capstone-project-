@@ -1,0 +1,335 @@
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* ===============================
+   MEDSYS MEDICAL DASHBOARD UI
+=============================== */
+
+.medsys-body{
+    margin: 0;
+    padding: 40px;              /* flattened: previously leaked in from static/styles.css's bare body{} rule
+                                    (and previously WON over the inline *{padding:0} reset above, because a
+                                    type selector like body{} beats a universal selector *{} in specificity) */
+    height: 649px;              /* flattened: same leak */
+    min-height:100vh;
+    display: flex;              /* flattened: same leak */
+    justify-content: center;    /* flattened: same leak */
+    align-items: center;        /* flattened: same leak */
+    background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url('/static/images/background.jpg') center/cover no-repeat;
+}
+
+.medsys-app{
+    width:100%;
+    margin:0;
+    padding:40px 40px;
+}
+
+.medsys-header{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 32px;
+    border-radius:22px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 15px 50px rgba(0,0,0,0.6);
+    margin-bottom:30px;
+}
+
+.medsys-doc{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.medsys-doc-avatar{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00e5ff,#00bfa5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    box-shadow:0 0 25px rgba(0,229,255,0.7);
+}
+
+.medsys-doc-name{
+    color:#e0f7fa;
+    font-size:22px;
+    font-weight:700;
+}
+
+.medsys-doc-spec{
+    color:#80deea;
+    font-size:13px;
+}
+
+/* NOTE: the template also has a `medsys-doc-info` class wrapping the name/specialty block.
+   No rule for it exists in styles.css or in this file — it was already unstyled before this
+   move (kept exactly as-is; not something this reorganization introduced or fixed). */
+
+.medsys-logout{
+    padding:12px 22px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:700;
+    color:white;
+    background:linear-gradient(135deg,#ff5252,#ff1744);
+    box-shadow:0 0 25px rgba(255,82,82,0.5);
+    transition:0.3s;
+}
+.medsys-logout:hover{
+    transform:scale(1.06);
+    box-shadow:0 0 40px rgba(255,82,82,0.9);
+}
+
+.medsys-panel{
+    width:100%;
+    padding:40px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.07);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 20px 70px rgba(0,0,0,0.7);
+}
+
+.medsys-panel-head{
+    margin-bottom:28px;
+}
+
+.medsys-title{
+    color:#e0f7fa;
+    font-size:30px;
+    font-weight:800;
+}
+
+.medsys-subtitle{
+    color:#80cbc4;
+    font-size:14px;
+}
+
+.medsys-patient-grid{
+    width:100%;
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+    gap:28px;
+}
+
+.medsys-patient-card{
+    text-decoration:none;
+    padding:24px;
+    border-radius:22px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 10px 35px rgba(0,0,0,0.6);
+    transition:0.35s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.medsys-patient-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.15),transparent);
+    opacity:0;
+    transition:0.4s;
+}
+
+.medsys-patient-card:hover::after{
+    opacity:1;
+}
+
+.medsys-patient-card:hover{
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 25px 70px rgba(0,0,0,0.9);
+}
+
+.medsys-card-top{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:16px;
+}
+
+.medsys-avatar{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#4dd0e1,#26a69a);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    color:#00363a;
+    font-size:18px;
+    box-shadow:0 0 18px rgba(77,208,225,0.7);
+}
+
+.medsys-pname{
+    color:#e0f7fa;
+    font-size:19px;
+    font-weight:700;
+}
+
+.medsys-card-body p{
+    margin:7px 0;
+    color:#cfd8dc;
+    font-size:14px;
+}
+
+.medsys-card-body span{
+    color:#80deea;
+    font-weight:700;
+}
+
+.medsys-card-action{
+    margin-top:18px;
+    padding:12px;
+    text-align:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,#00e5ff,#00bfa5);
+    color:#00363a;
+    font-weight:800;
+    transition:0.3s;
+    box-shadow:0 0 22px rgba(0,229,255,0.6);
+}
+
+.medsys-patient-card:hover .medsys-card-action{
+    transform:scale(1.06);
+    box-shadow:0 0 40px rgba(0,229,255,0.9);
+}
+
+.medsys-empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:40px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    color:#fff;
+    font-weight:700;
+}
+
+@media(max-width:900px){
+    .medsys-panel{
+        padding:28px;
+    }
+}
+
+@media(max-width:600px){
+    .medsys-header{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+
+    .medsys-app{
+        padding:20px 15px;
+    }
+
+    .medsys-panel{
+        padding:22px;
+    }
+}
+
+/* Availability Section */
+.medsys-center{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.medsys-availability {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 16px;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.status-label {
+    color: #e0f7fa;
+    font-weight: 700;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.status-dot {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.status-dot.online {
+    background: #4caf50;
+    box-shadow: 0 0 10px #4caf50;
+}
+
+.status-dot.offline {
+    background: #f44336;
+    box-shadow: 0 0 10px #f44336;
+}
+
+.status-dot::after {
+    content: attr(data-text);
+    display: none;
+}
+
+.availability-btn {
+    margin-top: 20px;   /* flattened: previously leaked in from static/styles.css's bare button{} rule */
+    width: 100%;         /* flattened: same leak */
+    padding: 10px 18px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.availability-btn.on {
+    background: linear-gradient(135deg,#ff5252,#ff1744);
+    color: #ffffff;
+    box-shadow:0 0 25px rgba(255,82,82,0.5);
+}
+
+.availability-btn.off {
+    background: linear-gradient(135deg, #66bb6a, #2e7d32);
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(102,187,106,0.45);
+}
+
+.availability-btn:hover {
+    transform: scale(1.05);
+}
+
+.availability-btn.on:hover{
+    box-shadow: 0 0 30px rgba(255,82,82,0.9);
+}
+
+.availability-btn.off:hover{
+    box-shadow: 0 0 30px rgba(102,187,106,0.6);
+}

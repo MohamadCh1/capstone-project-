@@ -1,0 +1,99 @@
+/* NOTE ON RENAMES (see Step 2 rename log):
+   .msg      -> .chat-bubble
+   .user-msg -> .chat-bubble-user
+   .ai-msg   -> .chat-bubble-ai
+   These are also used from JavaScript in ask_ai.html (className assignments),
+   which were updated to match. Property values are unchanged. */
+
+body {
+    margin: 0;
+    background: #0b0f1a;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.ai-chat-container {
+    width: 100%;
+    max-width: 900px;
+    height: 90vh;
+    background: #0f172a;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    overflow: hidden;
+}
+
+.ai-header {
+    padding: 16px;
+    background: linear-gradient(90deg,#1e293b,#020617);
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #1e293b;
+}
+
+.ai-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.chat-bubble {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    line-height: 1.5;
+    font-size: 15px;
+}
+
+.chat-bubble-user {
+    align-self: flex-end;
+    background: #2563eb;
+}
+
+.chat-bubble-ai {
+    align-self: flex-start;
+    background: #020617;
+    border: 1px solid #1e293b;
+}
+
+.ai-input {
+    display: flex;
+    padding: 14px;
+    border-top: 1px solid #1e293b;
+    background: #020617;
+}
+
+.ai-input input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: #0f172a;
+    color: white;
+    font-size: 15px;
+}
+
+.ai-input button {
+    margin-left: 10px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #22c55e;
+    color: black;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.ai-input button:hover {
+    background: #16a34a;
+}

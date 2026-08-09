@@ -39,10 +39,11 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 class RiskService:
-    def __init__(self, patients_repo):
+    def __init__(self, patients_repo, prediction_repo):
         self.model = joblib.load(MODEL_PATH)
         self.feature_cols = joblib.load(FEATURES_PATH)
         self.patients = patients_repo
+        self.prediction_repo = prediction_repo
 
     def _assemble_df(self, payload: Dict) -> pd.DataFrame:
         payload["RIDAGEYR"] = calculate_age(payload["RIDAGEYR"])
@@ -156,6 +157,7 @@ class RiskService:
         category = self._categorize(proba)
         explanation = self._explain(payload)
         await self.patients.update_risk(patient_email, category)
+        await self.prediction_repo.insert_prediction(patient_email, proba, category, explanation)
         return {"probability": round(proba, 4), "category": category,
                 "thresholds": {"low": LOW_TH, "high": HIGH_TH}, "explanation": explanation}
 

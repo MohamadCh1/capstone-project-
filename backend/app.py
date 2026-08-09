@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request,status
 from fastapi.exceptions import RequestValidationError
 from fastapi.templating import Jinja2Templates
-from backend.routers import doctor, test, patient,dashboard, suggestion, llm
+from backend.routers import doctor, test, patient,dashboard, suggestion, llm, devices
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
@@ -45,3 +45,4 @@ app.include_router(patient.router)
 app.include_router(doctor.router)
 app.include_router(suggestion.router)
 app.include_router(llm.router)
+app.include_router(devices.router)

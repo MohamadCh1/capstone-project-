@@ -1,0 +1,321 @@
+/* NOTE: per explicit decision, this file intentionally adds NO rule for
+   .medsys-app, .medsys-title, or .medsys-subtitle, even though the template
+   uses those classes. They resolved to no CSS anywhere before this move
+   (styles.css was never linked from this template) and that is preserved
+   exactly — not "fixed" — here. */
+
+/* ================== PATIENT PAGE EXTENSIONS ================== */
+/* Header */
+.medsys-patient-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 32px;
+    border-radius:22px;
+    background:rgba(18,34,42,0.85);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 18px 60px rgba(0,0,0,0.8);
+    margin-bottom:30px;
+}
+
+/* Patient Info */
+.medsys-patient-info{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.medsys-patient-info span{
+    color:#00e5ff;
+    font-weight:700;
+}
+
+.medsys-patient-info p{
+    margin:0;
+    color:#e0f7fa;
+    font-weight:600;
+}
+
+/* Suggestions */
+.medsys-suggestion-box{
+    margin-bottom:30px;
+    padding:28px;
+    border-radius:26px;
+    background:rgba(18,34,42,0.85);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(0,229,255,0.12);
+    box-shadow:0 25px 70px rgba(0,0,0,0.85);
+    position:relative;
+    overflow:hidden;
+}
+
+.medsys-suggestion-box::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(0,229,255,0.06),transparent);
+    opacity:0;
+    transition:0.4s;
+    pointer-events: none;
+}
+.medsys-suggestion-box:hover::after{opacity:1;}
+
+.medsys-suggestion-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.medsys-suggestion-title{
+    font-size:22px;
+    font-weight:800;
+    color:#e0f7fa;
+}
+
+/* Priority */
+.medsys-priority{
+    padding:7px 16px;
+    border-radius:14px;
+    font-weight:900;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.priority-high{
+    background:linear-gradient(135deg,#ff1744,#d50000);
+    color:white;
+    box-shadow:0 0 18px rgba(255,23,68,0.7);
+}
+.priority-medium{
+    background:linear-gradient(135deg,#ffb300,#ff6f00);
+    color:#1a1a1a;
+}
+.priority-low{
+    background:linear-gradient(135deg,#00e5ff,#00bfa5);
+    color:#00363a;
+}
+
+/* Body */
+.medsys-suggestion-body{
+    color:#cfd8dc;
+    font-size:15px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+/* Status */
+.medsys-suggestion-status{
+    margin-bottom:18px;
+    font-weight:800;
+    font-size:14px;
+}
+
+.status-active{ color:#00e676; }
+.status-proposed{ color:#ffea00; }
+.status-stopped{ color:#ff5252; }
+.status-rejected{ color:#90a4ae; }
+
+/* Actions */
+.medsys-suggestion-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.medsys-btn{
+    padding:12px 24px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    font-weight:900;
+    font-size:13px;
+    letter-spacing:0.5px;
+    transition:0.3s;
+}
+
+.btn-activate{
+    background:linear-gradient(135deg,#00bfa5,#00e5ff);
+    color:#002b33;
+    box-shadow:0 0 22px rgba(0,229,255,0.6);
+}
+.btn-stop{
+    background:linear-gradient(135deg,#ff5252,#ff1744);
+    color:white;
+    box-shadow:0 0 22px rgba(255,82,82,0.6);
+}
+.btn-reject{
+    background:linear-gradient(135deg,#546e7a,#78909c);
+    color:white;
+}
+
+.btn-activate:hover,
+.btn-stop:hover,
+.btn-reject:hover{
+    transform:scale(1.08);
+    filter:brightness(1.1);
+}
+
+/* Charts */
+.medsys-chart-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(360px,1fr));
+    gap:28px;
+}
+
+.medsys-chart-box{
+    aspect-ratio:4/3;
+    padding:18px;
+    border-radius:26px;
+    background:rgba(18,34,42,0.85);
+    backdrop-filter: blur(16px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 20px 60px rgba(0,0,0,0.85);
+}
+
+canvas{width:100%!important;height:100%!important;}
+
+/* Empty */
+.medsys-empty-box{
+    padding:40px;
+    border-radius:26px;
+    background:rgba(18,22,26,0.85);
+    backdrop-filter: blur(16px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 20px 60px rgba(0,0,0,0.85);
+}
+.medsys-body{
+    background: linear-gradient(180deg,#1e2a32,#18242b);
+}
+.medsys-logout {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.medsys-logout:first-of-type {
+  background-color: #444;
+  color: #fff;
+}
+
+.medsys-logout:first-of-type:hover {
+  background-color: #666;
+}
+
+.medsys-logout:last-of-type {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.medsys-logout:last-of-type:hover {
+  background-color: #c9302c;
+}
+
+/* ================== DOC SUGGESTION CONTAINER ================== */
+.doc-suggestion-container{
+    background: rgba(18,34,42,0.85);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 0 40px rgba(0,255,255,0.05);
+    border: 1px solid rgba(0,229,255,0.15);
+    width: 96%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Header */
+.doc-suggestion-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.doc-suggestion-header h2{
+    color: #e0f7fa;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Form */
+.doc-suggestion-form{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.doc-label{
+    color: #cfd8dc;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* Input */
+.doc-suggestion-input{
+    background: rgba(18,34,42,0.85);
+    border: 1px solid rgba(0,229,255,0.25);
+    border-radius: 14px;
+    padding: 16px;
+    color: #e0f7fa;
+    font-size: 15px;
+    min-height: 10px;
+    resize: vertical;
+    outline: none;
+    transition: 0.3s;
+}
+
+.doc-suggestion-input::placeholder{
+    color: #5c7a80;
+}
+
+.doc-suggestion-input:focus{
+    border-color: #00e5ff;
+    box-shadow: 0 0 12px rgba(0,229,255,0.25);
+}
+
+/* Priority select */
+.doc-priority-select{
+    background: rgba(18,34,42,0.85);
+    border: 1px solid rgba(0,229,255,0.25);
+    border-radius: 14px;
+    color: #e0f7fa;
+    padding: 12px;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.doc-priority-select option{
+    color: #000; /* black text for readability */
+}
+
+.doc-priority-select:focus{
+    border-color: #00e5ff;
+    box-shadow: 0 0 12px rgba(0,229,255,0.25);
+}
+
+/* Submit */
+.doc-submit-btn{
+    align-self: flex-end;
+    background: linear-gradient(135deg, #00bfa5, #00e5ff);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 14px;
+    font-weight: 600;
+    color: #002b33;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.doc-submit-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(0,229,255,0.5);
+}

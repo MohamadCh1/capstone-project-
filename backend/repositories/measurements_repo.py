@@ -61,3 +61,20 @@ class MeasurementsRepo:
             }
 
         return measurements
+    
+    async def update_serial_number(
+        self,
+        old_serial: str,
+        new_serial: str
+    ) -> bool:
+        update_query = text("""
+            UPDATE measurements
+            SET device_serial = :new_serial
+            WHERE device_serial = :old_serial
+        """)
+        result = await self.session.execute(update_query, {
+            "new_serial": new_serial,
+            "old_serial": old_serial
+        })
+        await self.session.commit()
+        return result.rowcount > 0

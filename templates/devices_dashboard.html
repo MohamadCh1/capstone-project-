@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Devices Dashboard</title>
+<link rel="stylesheet" href="/static/css/devices_dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <header class="dashboard-header animate delay-1">
+        <div class="meta-item">
+            <span class="meta-label">PATIENT</span>
+            <span class="meta-value">{{ user.name }}</span>
+        </div>
+        
+        <div class="meta-item">
+            <span class="meta-label">RISK CATEGORY</span>
+            <span class="meta-value">
+                {{ prediction_data.category }}
+            </span>
+        </div>
+
+        <a href="/dashboard" class="btn btn-ai">Dashboard</a>
+
+        <a href="/ask-ai" class="btn btn-ai">Ask Ai</a>
+
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </header>
+
+    <main class="devices-grid">
+        <a href="/device_change/BMI" class="device-slot animate delay-2">
+            <div class="device-card">
+                <div class="device-icon">⚖️</div>
+                <div class="device-title">BMI Device</div>
+                <div class="device-desc">Smart Scale / Body Composition</div>
+            </div>
+        </a>
+
+        <a href="/device_change/HBA1C" class="device-slot animate delay-3">
+            <div class="device-card">
+                <div class="device-icon">🧪</div>
+                <div class="device-title">HbA1c Device</div>
+                <div class="device-desc">Laboratory / Analyzer Device</div>
+            </div>
+        </a>
+
+        <a href="/device_change/Glucose" class="device-slot animate delay-4">
+            <div class="device-card">
+                <div class="device-icon">🩸</div>
+                <div class="device-title">Glucose Device</div>
+                <div class="device-desc">CGM / Glucometer</div>
+            </div>
+        </a>
+
+        <a href="/device_change/SBP" class="device-slot animate delay-5">
+            <div class="device-card">
+                <div class="device-icon">🫀</div>
+                <div class="device-title">SBP Device</div>
+                <div class="device-desc">Blood Pressure Monitor</div>
+            </div>
+        </a>
+
+        <a href="/device_change/Activity&Sleep" class="device-slot animate delay-6">
+            <div class="device-card">
+                <div class="device-icon">🏃‍♂️</div>
+                <div class="device-title">Lifestyle Device</div>
+                <div class="device-desc">Wearable / Activity Tracker</div>
+            </div>
+        </a>
+    </main>
+
+</div>
+
+</body>
+</html>

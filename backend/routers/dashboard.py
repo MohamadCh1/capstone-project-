@@ -8,6 +8,7 @@ from backend.repositories.patient_repo import MySQLPatientsRepo
 from backend.database import get_pg_session, get_mysql_session, pg_session_factory, mysql_session_factory
 from backend.repositories.suggestion_repo import MySQLSuggestionsRepo
 from backend.repositories.doctor_repo import MySQLDoctorsRepo
+from backend.repositories.prediction_repo import RiskPredictionRepo
 from pydantic import EmailStr
 import json
 
@@ -28,24 +29,26 @@ async def get_info(request: Request, email: EmailStr, pg: AsyncSession = Depends
     if measurement_data:
         async with mysql_session_factory() as session:
             patient_repo = MySQLPatientsRepo(session)
-            risk_services = RiskService(patient_repo)
-            prediction_data = {
-                "RIDAGEYR": patient["dob"],
-                "BMXBMI": measurement_data["BMI"]["value"],
-                "LBXGH": measurement_data["HBA1C"]["value"],
-                "LBXGH_missing": 0, 
-                "SBP_mean": measurement_data["SBP"]["value"], 
-                "LBDHDD": 51.0, 
-                "HDL_missing": 1,
-                "LBXSCR": 0.84, 
-                "LBXGLU": measurement_data["Glucose"]["value"],
-                "LBXGLU_missing": 0,
-                "ACR": 0.07593,
-                "ACR_missing": 1,
-                "RIAGENDR": patient["gender"],
-                "RIDRETH3": patient["ethnicity"]
-            }
-            prediction = await risk_services.predict_and_record(patient["email"], prediction_data)
+            async with pg_session_factory() as pg_session:
+                prediction_repo = RiskPredictionRepo(pg_session)
+                risk_services = RiskService(patient_repo, prediction_repo)
+                prediction_data = {
+                    "RIDAGEYR": patient["dob"],
+                    "BMXBMI": measurement_data["BMI"]["value"],
+                    "LBXGH": measurement_data["HBA1C"]["value"],
+                    "LBXGH_missing": 0, 
+                    "SBP_mean": measurement_data["SBP"]["value"], 
+                    "LBDHDD": 51.0, 
+                    "HDL_missing": 1,
+                    "LBXSCR": 0.84, 
+                    "LBXGLU": measurement_data["Glucose"]["value"],
+                    "LBXGLU_missing": 0,
+                    "ACR": 0.07593,
+                    "ACR_missing": 1,
+                    "RIAGENDR": patient["gender"],
+                    "RIDRETH3": patient["ethnicity"]
+                }
+                prediction = await risk_services.predict_and_record(patient["email"], prediction_data)
             # SBP
             chart_data = {
                 "labels": [m["ts"].date().isoformat() for m in last_7_day["SBP"]],
@@ -140,24 +143,26 @@ async def dashboard(request: Request, pg: AsyncSession = Depends(get_pg_session)
         if measurement_data:
             async with mysql_session_factory() as session:
                 patient_repo = MySQLPatientsRepo(session)
-                risk_services = RiskService(patient_repo)
-                prediction_data = {
-                    "RIDAGEYR": user["dob"],
-                    "BMXBMI": measurement_data["BMI"]["value"],
-                    "LBXGH": measurement_data["HBA1C"]["value"],
-                    "LBXGH_missing": 0, 
-                    "SBP_mean": measurement_data["SBP"]["value"], 
-                    "LBDHDD": 51.0, 
-                    "HDL_missing": 1,
-                    "LBXSCR": 0.84, 
-                    "LBXGLU": measurement_data["Glucose"]["value"],
-                    "LBXGLU_missing": 0,
-                    "ACR": 0.07593,
-                    "ACR_missing": 1,
-                    "RIAGENDR": user["gender"],
-                    "RIDRETH3": user["ethnicity"]
-                }
-                prediction = await risk_services.predict_and_record(user["email"], prediction_data)
+                async with pg_session_factory() as pg_session:
+                    prediction_repo = RiskPredictionRepo(pg_session)
+                    risk_services = RiskService(patient_repo, prediction_repo)
+                    prediction_data = {
+                        "RIDAGEYR": user["dob"],
+                        "BMXBMI": measurement_data["BMI"]["value"],
+                        "LBXGH": measurement_data["HBA1C"]["value"],
+                        "LBXGH_missing": 0, 
+                        "SBP_mean": measurement_data["SBP"]["value"], 
+                        "LBDHDD": 51.0, 
+                        "HDL_missing": 1,
+                        "LBXSCR": 0.84, 
+                        "LBXGLU": measurement_data["Glucose"]["value"],
+                        "LBXGLU_missing": 0,
+                        "ACR": 0.07593,
+                        "ACR_missing": 1,
+                        "RIAGENDR": user["gender"],
+                        "RIDRETH3": user["ethnicity"]
+                    }
+                    prediction = await risk_services.predict_and_record(user["email"], prediction_data)
                 async with mysql_session_factory() as session:
                     repo = MySQLSuggestionsRepo(session)
                     medical_services = MedicalService(repo)
@@ -177,6 +182,7 @@ async def dashboard(request: Request, pg: AsyncSession = Depends(get_pg_session)
                                 s["details"] = json.loads(s["details"])
                             except Exception:
                                 pass
+                    request.session["prediction"] = prediction
             return templates.TemplateResponse("patient_dashboard.html", {"request": request, "user": user, 
                                                                     "patient_measurement_data": measurement_data,
                                                                     "prediction_data": prediction,
