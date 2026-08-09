@@ -1,17 +1,21 @@
 body {
     min-height: 100vh;
-    background: var(--ds-page-bg);
+    background: var(--ds-page-bg-photo);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--ds-space-10);
+    padding: var(--ds-space-6);
     margin: 0;
 }
 
 .form-container {
     background: var(--ds-surface);
     border: 1px solid var(--ds-border);
-    padding: var(--ds-space-8);
+    padding: var(--ds-space-6);
     border-radius: var(--ds-radius-lg);
     box-shadow: var(--ds-shadow-lg);
     max-width: 480px;
@@ -23,12 +27,12 @@ h1 {
     font-size: 26px;
     font-weight: 700;
     color: var(--ds-text);
-    margin: 0 0 var(--ds-space-6);
+    margin: 0 0 var(--ds-space-4);
 }
 
 label {
     display: block;
-    margin: var(--ds-space-3) 0 6px;
+    margin: var(--ds-space-2) 0 var(--ds-space-1);
     font-size: 13px;
     font-weight: 600;
     color: var(--ds-text-secondary);
@@ -60,7 +64,7 @@ select:focus {
 }
 
 button {
-    margin-top: var(--ds-space-5);
+    margin-top: var(--ds-space-4);
     width: 100%;
     padding: 12px;
     background: var(--ds-primary-700);

@@ -53,6 +53,18 @@
     font-weight: 600;
 }
 
+.medsys-patient-info .risk-high {
+    color: var(--ds-danger);
+}
+
+.medsys-patient-info .risk-medium {
+    color: var(--ds-warning);
+}
+
+.medsys-patient-info .risk-low {
+    color: var(--ds-success);
+}
+
 .medsys-patient-info p {
     margin: 0;
     color: var(--ds-text);

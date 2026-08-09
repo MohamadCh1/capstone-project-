@@ -48,8 +48,16 @@ body {
     white-space: nowrap;
 }
 
-.risk-high {
-    color: var(--ds-danger) !important;
+.meta-value.risk-high {
+    color: var(--ds-danger);
+}
+
+.meta-value.risk-medium {
+    color: var(--ds-warning);
+}
+
+.meta-value.risk-low {
+    color: var(--ds-success);
 }
 
 .btn {
@@ -59,10 +67,8 @@ body {
     font-size: 14px;
     font-weight: 600;
     transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
-    display: inline-block;
     border: 1px solid transparent;
     text-align: center;
-    min-width: 110px;
 }
 
 .btn-nav {

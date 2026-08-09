@@ -1,17 +1,21 @@
 body {
     min-height: 100vh;
-    background: var(--ds-page-bg);
+    background: var(--ds-page-bg-photo);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--ds-space-10);
+    padding: var(--ds-space-6);
     margin: 0;
 }
 
 .form-container {
     background: var(--ds-surface);
     border: 1px solid var(--ds-border);
-    padding: var(--ds-space-8);
+    padding: var(--ds-space-6);
     border-radius: var(--ds-radius-lg);
     box-shadow: var(--ds-shadow-lg);
     max-width: 1000px;
@@ -24,23 +28,27 @@ h1 {
     font-size: 26px;
     font-weight: 700;
     color: var(--ds-text);
-    margin: 0 0 var(--ds-space-6);
+    margin: 0 0 var(--ds-space-4);
 }
 
 .form-row {
     display: flex;
-    gap: var(--ds-space-10);
+    gap: var(--ds-space-6);
     flex-wrap: wrap;
 }
 
 .form-group {
     flex: 1;
-    min-width: 300px;
+    min-width: 260px;
 }
 
+/* This page's own spacing pass: it has 7 fields plus 5 device sections,
+   noticeably denser than the other 3 auth pages (2-7 plain fields, single
+   column), so label/input sizing here is deliberately tighter than the
+   shared recipe those pages use — not an inconsistency, a fit requirement. */
 label {
     display: block;
-    margin: var(--ds-space-3) 0 6px;
+    margin: var(--ds-space-1) 0 2px;
     font-size: 13px;
     font-weight: 600;
     color: var(--ds-text-secondary);
@@ -50,7 +58,7 @@ label {
 input,
 select {
     width: 100%;
-    padding: 10px 14px;
+    padding: 8px 12px;
     border: 1px solid var(--ds-border);
     border-radius: var(--ds-radius-sm);
     background: var(--ds-surface-alt);
@@ -73,14 +81,21 @@ select:focus {
 
 .device-block {
     margin-bottom: var(--ds-space-5);
-    padding: var(--ds-space-4);
+    padding: var(--ds-space-1);
     background: var(--ds-surface-alt);
     border: 1px solid var(--ds-border);
     border-radius: var(--ds-radius-md);
 }
 
+.device-block:first-child {
+    /* Matches the personal-info column's first label (margin-top:
+       var(--ds-space-1)) so both columns' content starts at the same
+       vertical offset instead of the bordered box reading as "higher". */
+    margin-top: var(--ds-space-1);
+}
+
 .device-block h3 {
-    margin: 0 0 var(--ds-space-3);
+    margin: 0 0 var(--ds-space-1);
     font-size: 15px;
     font-weight: 600;
     color: var(--ds-text);
@@ -96,7 +111,7 @@ select:focus {
 }
 
 button {
-    margin-top: var(--ds-space-5);
+    margin-top: var(--ds-space-4);
     width: 100%;
     padding: 12px;
     background: var(--ds-primary-700);

@@ -1,19 +1,26 @@
 body {
     margin: 0;
     padding: 40px; /* flattened: previously leaked in from static/styles.css's bare body{} rule */
-    font-family: Arial, sans-serif;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                url('/static/images/background.jpg');
+    box-sizing: border-box; /* bug fix: without this, the 40px padding was added on top of
+                                the explicit height below instead of being included in it */
+    background: var(--ds-page-bg-photo);
     background-size: cover;
-    background-position: top;
+    background-position: center;
     background-repeat: no-repeat;
-    height: 89vh;
+    background-attachment: fixed;
+    min-height: 100vh; /* bug fix: was a fixed `height: 89vh`, which (plus content-box padding)
+                           left the bottom of the viewport uncovered on most screens */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .overlay {
+    /* Pinned explicitly: design-system.css's universal box-sizing:border-box
+       reset now reaches this page (needed for --ds-page-bg-photo to resolve
+       below), but this panel's max-width was authored assuming content-box.
+       This keeps its rendered size byte-for-byte identical to before. */
+    box-sizing: content-box;
     background: rgba(18, 20, 23, 0.7);
     padding: 40px;
     border-radius: 10px;

@@ -52,6 +52,18 @@ body {
     color: var(--ds-primary);
 }
 
+.meta-value.risk-high {
+    color: var(--ds-danger);
+}
+
+.meta-value.risk-medium {
+    color: var(--ds-warning);
+}
+
+.meta-value.risk-low {
+    color: var(--ds-success);
+}
+
 .header-actions {
     display: flex;
     gap: var(--ds-space-3);

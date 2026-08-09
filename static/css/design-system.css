@@ -77,6 +77,17 @@
     /* ---- Unified page background (replaces background.jpg + assorted
        flat/gradient treatments used across the old pages) ---------------*/
     --ds-page-bg: radial-gradient(120% 120% at 50% -10%, var(--ds-bg-elevated) 0%, var(--ds-bg) 55%);
+
+    /* ---- Photo variant of the page background, for the 4 auth pages ----
+       Same navy palette as --ds-page-bg, layered as a translucent overlay
+       over the original background photo instead of a flat gradient, so
+       the photo reads through while still matching the design system's
+       tone. Callers must also set background-size/position/repeat/
+       attachment explicitly (see the auth CSS files) — this token only
+       supplies the layered image value itself. */
+    --ds-page-bg-photo:
+        linear-gradient(180deg, rgba(16, 26, 46, 0.40), rgba(10, 17, 32, 0.55)),
+        url('/static/images/background.jpg');
 }
 
 *,

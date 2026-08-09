@@ -19,7 +19,7 @@
         <p><span>Patient:</span> {{ patient.name }}</p>
         {% if prediction_data%}
             <p><span>Diabetes Risk:</span> {{ prediction_data.probability *100 }}%</p>
-            <p><span>Category:</span> {{ prediction_data.category }}</p>
+            <p><span>Category:</span> <span class="{% if prediction_data.category|lower == 'high' %}risk-high{% elif prediction_data.category|lower == 'medium' %}risk-medium{% elif prediction_data.category|lower == 'low' %}risk-low{% endif %}">{{ prediction_data.category }}</span></p>
         {% endif %}
     </div>
 
