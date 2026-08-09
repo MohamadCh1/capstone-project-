@@ -1,0 +1,167 @@
+/* ==========================================================================
+   UNIFIED DESIGN SYSTEM
+   Shared tokens + a handful of truly cross-page components (error/success
+   banners, switch-links, empty-state fade-in animation).
+
+   Linked by every template EXCEPT home.html, before that template's own
+   per-page CSS file — so a page's own stylesheet can still override a
+   specific value while inheriting everything else from here.
+
+   This file does not replace the "one CSS file per template" structure;
+   it is the single source of truth that those per-template files now pull
+   their colors/spacing/radius/shadow values from, so the whole product
+   reads as one design instead of ten different ones.
+   ========================================================================== */
+
+:root {
+    /* ---- Surfaces --------------------------------------------------- */
+    --ds-bg: #0a1120;
+    --ds-bg-elevated: #101a2e;
+    --ds-surface: #141f38;
+    --ds-surface-alt: #1b2842;
+    --ds-border: #2a3a58;
+    --ds-border-strong: #3d5277;
+
+    /* ---- Text --------------------------------------------------------*/
+    --ds-text: #eef2f8;
+    --ds-text-secondary: #a9b7cf;
+    --ds-text-muted: #74839e;
+
+    /* ---- Brand accent (teal) — used for links, focus rings, icons,
+       and as the fill for primary-action buttons ---------------------- */
+    --ds-primary: #2dd4bf;
+    --ds-primary-300: #5eead4;
+    --ds-primary-600: #0d9488;
+    --ds-primary-700: #0f766e;
+    --ds-primary-800: #115e59;
+
+    /* ---- Semantic colors --------------------------------------------*/
+    --ds-danger: #f87171;
+    --ds-danger-600: #dc2626;
+    --ds-danger-700: #b91c1c;
+
+    --ds-success: #4ade80;
+    --ds-success-600: #16a34a;
+    --ds-success-700: #15803d;
+    --ds-success-800: #14532d;
+
+    --ds-warning: #fbbf24;
+
+    /* ---- Typography ---------------------------------------------------*/
+    --ds-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    /* ---- Spacing scale (4px base unit) ------------------------------- */
+    --ds-space-1: 4px;
+    --ds-space-2: 8px;
+    --ds-space-3: 12px;
+    --ds-space-4: 16px;
+    --ds-space-5: 20px;
+    --ds-space-6: 24px;
+    --ds-space-8: 32px;
+    --ds-space-10: 40px;
+    --ds-space-12: 48px;
+
+    /* ---- Radius scale --------------------------------------------------*/
+    --ds-radius-sm: 6px;
+    --ds-radius-md: 10px;
+    --ds-radius-lg: 16px;
+    --ds-radius-xl: 22px;
+    --ds-radius-full: 999px;
+
+    /* ---- Elevation (one shadow language, no neon glows) -----------------*/
+    --ds-shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.4);
+    --ds-shadow-md: 0 8px 24px rgba(2, 6, 23, 0.45);
+    --ds-shadow-lg: 0 20px 50px rgba(2, 6, 23, 0.55);
+    --ds-focus-ring: 0 0 0 3px rgba(45, 212, 191, 0.35);
+
+    /* ---- Unified page background (replaces background.jpg + assorted
+       flat/gradient treatments used across the old pages) ---------------*/
+    --ds-page-bg: radial-gradient(120% 120% at 50% -10%, var(--ds-bg-elevated) 0%, var(--ds-bg) 55%);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--ds-font);
+    color: var(--ds-text);
+    background: var(--ds-bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: var(--ds-primary);
+}
+
+/* Native <option> elements largely ignore parent theming in most browsers,
+   but pin this so any dark <select> still renders legible option text. */
+select option {
+    color: #111;
+}
+
+/* ---- Shared form feedback banners ---------------------------------------
+   Used identically across every login/register/device-change page instead
+   of some pages using these classes and others using raw inline styles. */
+.error,
+.message {
+    padding: 12px 16px;
+    border-radius: var(--ds-radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: var(--ds-space-4);
+    border: 1px solid transparent;
+}
+
+.error {
+    background: rgba(248, 113, 113, 0.14);
+    color: var(--ds-danger);
+    border-color: rgba(248, 113, 113, 0.4);
+}
+
+.message {
+    background: rgba(74, 222, 128, 0.14);
+    color: var(--ds-success);
+    border-color: rgba(74, 222, 128, 0.4);
+}
+
+/* ---- Shared text link (auth-page "switch to X" / "back to home" links) -*/
+.switch-link {
+    display: inline-block;
+    color: var(--ds-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.switch-link:hover {
+    color: var(--ds-primary-300);
+    text-decoration: underline;
+}
+
+/* ---- Shared card fade-in-on-load animation, used by every dashboard ----*/
+@keyframes ds-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate {
+    opacity: 0;
+    animation: ds-fade-up 0.7s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
