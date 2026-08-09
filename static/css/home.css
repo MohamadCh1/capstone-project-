@@ -21,7 +21,9 @@ body {
        below), but this panel's max-width was authored assuming content-box.
        This keeps its rendered size byte-for-byte identical to before. */
     box-sizing: content-box;
-    background: rgba(18, 20, 23, 0.7);
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    box-shadow: var(--ds-shadow-lg);
     padding: 40px;
     border-radius: 10px;
     text-align: center;
@@ -48,15 +50,17 @@ body {
 }
 
 .nav-links a {
-    background: #00796b;
-    color: white;
+    background: var(--ds-accent);
+    color: #ffffff;
     padding: 12px 20px;
-    border-radius: 6px;
+    border-radius: var(--ds-radius-md);
     text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s;
+    font-weight: 600;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .nav-links a:hover {
-    background: #004d40;
+    background: var(--ds-accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }

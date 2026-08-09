@@ -67,17 +67,18 @@ button {
     margin-top: var(--ds-space-4);
     width: 100%;
     padding: 12px;
-    background: var(--ds-primary-700);
+    background: var(--ds-accent);
     color: #ffffff;
     border: none;
     border-radius: var(--ds-radius-md);
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.15s ease, transform 0.15s ease;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 button:hover {
-    background: var(--ds-primary-800);
-    transform: translateY(-1px);
+    background: var(--ds-accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }
