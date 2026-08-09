@@ -1,23 +1,23 @@
 body {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                url('/static/images/background.jpg');
+    min-height: 100vh;
+    background: var(--ds-page-bg-photo);
     background-size: cover;
-    background-position: top;
+    background-position: center;
     background-repeat: no-repeat;
-    font-family: Arial, sans-serif;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
-    height: 649px;
+    padding: var(--ds-space-6);
     margin: 0;
 }
 
 .form-container {
-    background-color: rgba(30, 42, 50, 0.75);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    padding: var(--ds-space-6);
+    border-radius: var(--ds-radius-lg);
+    box-shadow: var(--ds-shadow-lg);
     max-width: 1000px;
     width: auto;
     min-width: 400px;
@@ -25,51 +25,85 @@ body {
 
 h1 {
     text-align: center;
-    color: #e0f7fa;
-    margin-bottom: 30px;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ds-text);
+    margin: 0 0 var(--ds-space-4);
 }
 
 .form-row {
     display: flex;
-    gap: 40px;
+    gap: var(--ds-space-6);
     flex-wrap: wrap;
 }
 
 .form-group {
     flex: 1;
-    min-width: 300px;
+    min-width: 260px;
 }
 
+/* This page's own spacing pass: it has 7 fields plus 5 device sections,
+   noticeably denser than the other 3 auth pages (2-7 plain fields, single
+   column), so label/input sizing here is deliberately tighter than the
+   shared recipe those pages use — not an inconsistency, a fit requirement. */
 label {
     display: block;
-    margin: 10px 0 5px;
-    font-weight: bold;
-    color: #b0c7d1;
+    margin: var(--ds-space-1) 0 2px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ds-text-secondary);
+    letter-spacing: 0.01em;
 }
 
-input, select {
+input,
+select {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #3a5060;
-    border-radius: 5px;
-    box-sizing: border-box;
-    background: #24343d;
-    color: #f5f5f5;
+    padding: 8px 12px;
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-sm);
+    background: var(--ds-surface-alt);
+    color: var(--ds-text);
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input::placeholder {
+    color: var(--ds-text-muted);
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--ds-primary);
+    box-shadow: var(--ds-focus-ring);
 }
 
 .device-block {
-    margin-bottom: 20px;
+    margin-bottom: var(--ds-space-5);
+    padding: var(--ds-space-1);
+    background: var(--ds-surface-alt);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-md);
+}
+
+.device-block:first-child {
+    /* Matches the personal-info column's first label (margin-top:
+       var(--ds-space-1)) so both columns' content starts at the same
+       vertical offset instead of the bordered box reading as "higher". */
+    margin-top: var(--ds-space-1);
 }
 
 .device-block h3 {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #e0f7fa;
+    margin: 0 0 var(--ds-space-1);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ds-text);
 }
 
 .device-row {
     display: flex;
-    gap: 10px;
+    gap: var(--ds-space-3);
 }
 
 .device-row input {
@@ -77,31 +111,21 @@ input, select {
 }
 
 button {
-    margin-top: 20px;
+    margin-top: var(--ds-space-4);
     width: 100%;
     padding: 12px;
-    background: #00796b;
-    color: white;
+    background: var(--ds-accent);
+    color: #ffffff;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: var(--ds-radius-md);
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 button:hover {
-    background: #004d40;
-}
-
-.switch-link {
-    display: inline-block;
-    margin-top: 3px;
-    color: #80cbc4;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.switch-link:hover {
-    color: #4db6ac;
-    text-decoration: underline;
+    background: var(--ds-accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }

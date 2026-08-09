@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Doctor Dashboard</title>
+<link rel="stylesheet" href="/static/css/design-system.css">
 <link rel="stylesheet" href="/static/css/doctor_dashboard.css">
 <link rel="icon" type="image/x-icon" href="/static/favicon.png">
 </head>
@@ -65,7 +66,7 @@
 
                 <div class="medsys-card-body">
                     <p><span>Email:</span> {{ patient.email }}</p>
-                    <p><span>Risk Level:</span> {{ patient.risk_category }}</p>
+                    <p><span>Risk Level:</span> {% if patient.risk_category %}<span class="{% if patient.risk_category|lower == 'high' %}risk-high{% elif patient.risk_category|lower == 'medium' %}risk-medium{% elif patient.risk_category|lower == 'low' %}risk-low{% endif %}">{{ patient.risk_category }}</span>{% else %}{{ patient.risk_category }}{% endif %}</p>
                 </div>
 
                 <div class="medsys-card-action">

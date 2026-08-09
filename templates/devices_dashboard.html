@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Devices Dashboard</title>
+<link rel="stylesheet" href="/static/css/design-system.css">
 <link rel="stylesheet" href="/static/css/devices_dashboard.css">
 </head>
 <body>
@@ -17,7 +18,7 @@
         
         <div class="meta-item">
             <span class="meta-label">RISK CATEGORY</span>
-            <span class="meta-value">
+            <span class="meta-value {% if prediction_data.category|lower == 'high' %}risk-high{% elif prediction_data.category|lower == 'medium' %}risk-medium{% elif prediction_data.category|lower == 'low' %}risk-low{% endif %}">
                 {{ prediction_data.category }}
             </span>
         </div>

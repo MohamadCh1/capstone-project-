@@ -3,97 +3,112 @@
    .user-msg -> .chat-bubble-user
    .ai-msg   -> .chat-bubble-ai
    These are also used from JavaScript in ask_ai.html (className assignments),
-   which were updated to match. Property values are unchanged. */
+   which were updated to match. */
 
 body {
     margin: 0;
-    background: #0b0f1a;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
+    min-height: 100vh;
+    background: var(--ds-page-bg);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .ai-chat-container {
     width: 100%;
     max-width: 900px;
     height: 90vh;
-    background: #0f172a;
-    border-radius: 14px;
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-xl);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    box-shadow: var(--ds-shadow-lg);
     overflow: hidden;
 }
 
 .ai-header {
-    padding: 16px;
-    background: linear-gradient(90deg,#1e293b,#020617);
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 1px solid #1e293b;
+    padding: var(--ds-space-4) var(--ds-space-5);
+    background: var(--ds-surface-alt);
+    color: var(--ds-text);
+    font-size: 18px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--ds-border);
 }
 
 .ai-messages {
     flex: 1;
-    padding: 20px;
+    padding: var(--ds-space-5);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: var(--ds-space-4);
 }
 
 .chat-bubble {
     max-width: 70%;
     padding: 12px 16px;
-    border-radius: 12px;
+    border-radius: var(--ds-radius-md);
     line-height: 1.5;
     font-size: 15px;
 }
 
 .chat-bubble-user {
     align-self: flex-end;
-    background: #2563eb;
+    background: var(--ds-primary-700);
+    color: #ffffff;
 }
 
 .chat-bubble-ai {
     align-self: flex-start;
-    background: #020617;
-    border: 1px solid #1e293b;
+    background: var(--ds-surface-alt);
+    border: 1px solid var(--ds-border);
+    color: var(--ds-text);
 }
 
 .ai-input {
     display: flex;
-    padding: 14px;
-    border-top: 1px solid #1e293b;
-    background: #020617;
+    padding: var(--ds-space-4);
+    border-top: 1px solid var(--ds-border);
+    background: var(--ds-surface);
 }
 
 .ai-input input {
     flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
+    padding: 12px 14px;
+    border-radius: var(--ds-radius-sm);
+    border: 1px solid var(--ds-border);
     outline: none;
-    background: #0f172a;
-    color: white;
+    background: var(--ds-surface-alt);
+    color: var(--ds-text);
     font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ai-input input::placeholder {
+    color: var(--ds-text-muted);
+}
+
+.ai-input input:focus {
+    border-color: var(--ds-primary);
+    box-shadow: var(--ds-focus-ring);
 }
 
 .ai-input button {
-    margin-left: 10px;
-    padding: 12px 20px;
-    border-radius: 8px;
+    margin-left: var(--ds-space-3);
+    padding: 12px 22px;
+    border-radius: var(--ds-radius-sm);
     border: none;
     cursor: pointer;
-    background: #22c55e;
-    color: black;
-    font-weight: bold;
-    transition: 0.2s;
+    background: var(--ds-accent);
+    color: #ffffff;
+    font-weight: 600;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .ai-input button:hover {
-    background: #16a34a;
+    background: var(--ds-accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }

@@ -6,6 +6,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+<link rel="stylesheet" href="/static/css/design-system.css">
 <link rel="stylesheet" href="/static/css/patient_info.css">
 </head>
 
@@ -18,7 +19,7 @@
         <p><span>Patient:</span> {{ patient.name }}</p>
         {% if prediction_data%}
             <p><span>Diabetes Risk:</span> {{ prediction_data.probability *100 }}%</p>
-            <p><span>Category:</span> {{ prediction_data.category }}</p>
+            <p><span>Category:</span> <span class="{% if prediction_data.category|lower == 'high' %}risk-high{% elif prediction_data.category|lower == 'medium' %}risk-medium{% elif prediction_data.category|lower == 'low' %}risk-low{% endif %}">{{ prediction_data.category }}</span></p>
         {% endif %}
     </div>
 
@@ -49,10 +50,10 @@ data:data,
 options:{
 responsive:true,
 maintainAspectRatio:false,
-plugins:{legend:{labels:{color:'#e0f7fa'}}},
+plugins:{legend:{labels:{color:'#eef2f8'}}},
 scales:{
-x:{ticks:{color:'#80deea'}},
-y:{ticks:{color:'#80deea'}}
+x:{ticks:{color:'#a9b7cf'}},
+y:{ticks:{color:'#a9b7cf'}}
 }
 }
 });

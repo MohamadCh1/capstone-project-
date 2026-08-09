@@ -1,321 +1,369 @@
-/* NOTE: per explicit decision, this file intentionally adds NO rule for
-   .medsys-app, .medsys-title, or .medsys-subtitle, even though the template
-   uses those classes. They resolved to no CSS anywhere before this move
-   (styles.css was never linked from this template) and that is preserved
-   exactly — not "fixed" — here. */
+/* Base page shell — previously undefined for .medsys-app/.medsys-title/
+   .medsys-subtitle on this template (they resolved to zero CSS rules before
+   this redesign). As part of unifying the whole product's visual language,
+   they now get real, consistent values matching every other page. */
+.medsys-body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--ds-page-bg);
+}
+
+.medsys-app {
+    width: 100%;
+    margin: 0;
+    padding: var(--ds-space-10);
+}
+
+.medsys-title {
+    color: var(--ds-text);
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.medsys-subtitle {
+    color: var(--ds-text-secondary);
+    font-size: 14px;
+}
 
 /* ================== PATIENT PAGE EXTENSIONS ================== */
 /* Header */
-.medsys-patient-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:22px 32px;
-    border-radius:22px;
-    background:rgba(18,34,42,0.85);
-    backdrop-filter: blur(18px);
-    border:1px solid rgba(255,255,255,0.12);
-    box-shadow:0 18px 60px rgba(0,0,0,0.8);
-    margin-bottom:30px;
+.medsys-patient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ds-space-4);
+    padding: var(--ds-space-5) var(--ds-space-6);
+    border-radius: var(--ds-radius-lg);
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    box-shadow: var(--ds-shadow-md);
+    margin-bottom: var(--ds-space-8);
 }
 
 /* Patient Info */
-.medsys-patient-info{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
+.medsys-patient-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.medsys-patient-info span{
-    color:#00e5ff;
-    font-weight:700;
+.medsys-patient-info span {
+    color: var(--ds-primary);
+    font-weight: 600;
 }
 
-.medsys-patient-info p{
-    margin:0;
-    color:#e0f7fa;
-    font-weight:600;
+.medsys-patient-info .risk-high {
+    color: var(--ds-danger);
+}
+
+.medsys-patient-info .risk-medium {
+    color: var(--ds-warning);
+}
+
+.medsys-patient-info .risk-low {
+    color: var(--ds-success);
+}
+
+.medsys-patient-info p {
+    margin: 0;
+    color: var(--ds-text);
+    font-weight: 500;
 }
 
 /* Suggestions */
-.medsys-suggestion-box{
-    margin-bottom:30px;
-    padding:28px;
-    border-radius:26px;
-    background:rgba(18,34,42,0.85);
-    backdrop-filter: blur(18px);
-    border:1px solid rgba(0,229,255,0.12);
-    box-shadow:0 25px 70px rgba(0,0,0,0.85);
-    position:relative;
-    overflow:hidden;
+.medsys-suggestion-box {
+    margin-bottom: var(--ds-space-8);
+    padding: var(--ds-space-6);
+    border-radius: var(--ds-radius-lg);
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    box-shadow: var(--ds-shadow-md);
+    position: relative;
+    overflow: hidden;
 }
 
-.medsys-suggestion-box::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(120deg,transparent,rgba(0,229,255,0.06),transparent);
-    opacity:0;
-    transition:0.4s;
+.medsys-suggestion-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    opacity: 0;
+    transition: 0.4s;
     pointer-events: none;
 }
-.medsys-suggestion-box:hover::after{opacity:1;}
 
-.medsys-suggestion-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:16px;
+.medsys-suggestion-box:hover::after {
+    opacity: 1;
 }
 
-.medsys-suggestion-title{
-    font-size:22px;
-    font-weight:800;
-    color:#e0f7fa;
+.medsys-suggestion-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ds-space-3);
+    margin-bottom: var(--ds-space-4);
 }
 
-/* Priority */
-.medsys-priority{
-    padding:7px 16px;
-    border-radius:14px;
-    font-weight:900;
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:1px;
+.medsys-suggestion-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ds-text);
 }
 
-.priority-high{
-    background:linear-gradient(135deg,#ff1744,#d50000);
-    color:white;
-    box-shadow:0 0 18px rgba(255,23,68,0.7);
+/* Priority — soft tinted pill, same recipe as patient_dashboard's badge */
+.medsys-priority {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: var(--ds-radius-full);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border: 1px solid transparent;
 }
-.priority-medium{
-    background:linear-gradient(135deg,#ffb300,#ff6f00);
-    color:#1a1a1a;
+
+.medsys-priority.priority-high {
+    background: rgba(248, 113, 113, 0.14);
+    color: var(--ds-danger);
+    border-color: rgba(248, 113, 113, 0.35);
 }
-.priority-low{
-    background:linear-gradient(135deg,#00e5ff,#00bfa5);
-    color:#00363a;
+
+.medsys-priority.priority-medium {
+    background: rgba(251, 191, 36, 0.14);
+    color: var(--ds-warning);
+    border-color: rgba(251, 191, 36, 0.35);
+}
+
+.medsys-priority.priority-low {
+    background: rgba(74, 222, 128, 0.14);
+    color: var(--ds-success);
+    border-color: rgba(74, 222, 128, 0.35);
 }
 
 /* Body */
-.medsys-suggestion-body{
-    color:#cfd8dc;
-    font-size:15px;
-    line-height:1.7;
-    margin-bottom:18px;
+.medsys-suggestion-body {
+    color: var(--ds-text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: var(--ds-space-4);
 }
 
 /* Status */
-.medsys-suggestion-status{
-    margin-bottom:18px;
-    font-weight:800;
-    font-size:14px;
+.medsys-suggestion-status {
+    margin-bottom: var(--ds-space-4);
+    font-weight: 700;
+    font-size: 14px;
 }
 
-.status-active{ color:#00e676; }
-.status-proposed{ color:#ffea00; }
-.status-stopped{ color:#ff5252; }
-.status-rejected{ color:#90a4ae; }
+.status-active { color: var(--ds-success); }
+.status-proposed { color: var(--ds-warning); }
+.status-stopped { color: var(--ds-danger); }
+.status-rejected { color: var(--ds-text-muted); }
 
 /* Actions */
-.medsys-suggestion-actions{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
+.medsys-suggestion-actions {
+    display: flex;
+    gap: var(--ds-space-3);
+    flex-wrap: wrap;
 }
 
-.medsys-btn{
-    padding:12px 24px;
-    border-radius:14px;
-    border:none;
-    cursor:pointer;
-    font-weight:900;
-    font-size:13px;
-    letter-spacing:0.5px;
-    transition:0.3s;
+.medsys-btn {
+    padding: 10px 20px;
+    border-radius: var(--ds-radius-md);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    transition: background 0.15s ease, transform 0.15s ease;
 }
 
-.btn-activate{
-    background:linear-gradient(135deg,#00bfa5,#00e5ff);
-    color:#002b33;
-    box-shadow:0 0 22px rgba(0,229,255,0.6);
+.btn-activate {
+    background: var(--ds-success-700);
+    color: #ffffff;
 }
-.btn-stop{
-    background:linear-gradient(135deg,#ff5252,#ff1744);
-    color:white;
-    box-shadow:0 0 22px rgba(255,82,82,0.6);
+
+.btn-activate:hover {
+    background: var(--ds-success-800);
 }
-.btn-reject{
-    background:linear-gradient(135deg,#546e7a,#78909c);
-    color:white;
+
+.btn-stop {
+    background: var(--ds-danger-600);
+    color: #ffffff;
+}
+
+.btn-stop:hover {
+    background: var(--ds-danger-700);
+}
+
+.btn-reject {
+    background: var(--ds-surface-alt);
+    color: var(--ds-text);
+    border: 1px solid var(--ds-border);
+}
+
+.btn-reject:hover {
+    background: var(--ds-border);
 }
 
 .btn-activate:hover,
 .btn-stop:hover,
-.btn-reject:hover{
-    transform:scale(1.08);
-    filter:brightness(1.1);
+.btn-reject:hover {
+    transform: translateY(-1px);
 }
 
 /* Charts */
-.medsys-chart-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit,minmax(360px,1fr));
-    gap:28px;
+.medsys-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: var(--ds-space-6);
+    margin-bottom: var(--ds-space-8);
 }
 
-.medsys-chart-box{
-    aspect-ratio:4/3;
-    padding:18px;
-    border-radius:26px;
-    background:rgba(18,34,42,0.85);
-    backdrop-filter: blur(16px);
-    border:1px solid rgba(255,255,255,0.12);
-    box-shadow:0 20px 60px rgba(0,0,0,0.85);
+.medsys-chart-box {
+    aspect-ratio: 4 / 3;
+    padding: var(--ds-space-4);
+    border-radius: var(--ds-radius-lg);
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    box-shadow: var(--ds-shadow-sm);
 }
 
-canvas{width:100%!important;height:100%!important;}
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
 
 /* Empty */
-.medsys-empty-box{
-    padding:40px;
-    border-radius:26px;
-    background:rgba(18,22,26,0.85);
-    backdrop-filter: blur(16px);
-    border:1px solid rgba(255,255,255,0.12);
-    box-shadow:0 20px 60px rgba(0,0,0,0.85);
+.medsys-empty-box {
+    padding: var(--ds-space-10);
+    border-radius: var(--ds-radius-lg);
+    background: var(--ds-surface-alt);
+    border: 1px dashed var(--ds-border-strong);
+    text-align: center;
 }
-.medsys-body{
-    background: linear-gradient(180deg,#1e2a32,#18242b);
-}
+
 .medsys-logout {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: var(--ds-radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--ds-text);
+    background: var(--ds-surface-alt);
+    border: 1px solid var(--ds-border);
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.medsys-logout:first-of-type {
-  background-color: #444;
-  color: #fff;
-}
-
-.medsys-logout:first-of-type:hover {
-  background-color: #666;
-}
-
-.medsys-logout:last-of-type {
-  background-color: #d9534f;
-  color: #fff;
-}
-
-.medsys-logout:last-of-type:hover {
-  background-color: #c9302c;
+.medsys-logout:hover {
+    background: var(--ds-border);
+    border-color: var(--ds-border-strong);
 }
 
 /* ================== DOC SUGGESTION CONTAINER ================== */
-.doc-suggestion-container{
-    background: rgba(18,34,42,0.85);
-    border-radius: 18px;
-    padding: 30px;
-    box-shadow: 0 0 40px rgba(0,255,255,0.05);
-    border: 1px solid rgba(0,229,255,0.15);
+.doc-suggestion-container {
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-lg);
+    padding: var(--ds-space-6);
+    box-shadow: var(--ds-shadow-md);
     width: 96%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: var(--ds-space-5);
+    margin-bottom: var(--ds-space-5);
 }
 
 /* Header */
-.doc-suggestion-header{
+.doc-suggestion-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: var(--ds-space-6);
 }
 
-.doc-suggestion-header h2{
-    color: #e0f7fa;
-    font-size: 26px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+.doc-suggestion-header h2 {
+    color: var(--ds-text);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 /* Form */
-.doc-suggestion-form{
+.doc-suggestion-form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: var(--ds-space-4);
 }
 
-.doc-label{
-    color: #cfd8dc;
-    font-size: 14px;
-    letter-spacing: 0.5px;
+.doc-label {
+    color: var(--ds-text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 /* Input */
-.doc-suggestion-input{
-    background: rgba(18,34,42,0.85);
-    border: 1px solid rgba(0,229,255,0.25);
-    border-radius: 14px;
-    padding: 16px;
-    color: #e0f7fa;
+.doc-suggestion-input {
+    background: var(--ds-surface-alt);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-sm);
+    padding: var(--ds-space-4);
+    color: var(--ds-text);
     font-size: 15px;
-    min-height: 10px;
+    font-family: inherit;
+    min-height: 120px;
     resize: vertical;
     outline: none;
-    transition: 0.3s;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.doc-suggestion-input::placeholder{
-    color: #5c7a80;
+.doc-suggestion-input::placeholder {
+    color: var(--ds-text-muted);
 }
 
-.doc-suggestion-input:focus{
-    border-color: #00e5ff;
-    box-shadow: 0 0 12px rgba(0,229,255,0.25);
+.doc-suggestion-input:focus {
+    border-color: var(--ds-primary);
+    box-shadow: var(--ds-focus-ring);
 }
 
 /* Priority select */
-.doc-priority-select{
-    background: rgba(18,34,42,0.85);
-    border: 1px solid rgba(0,229,255,0.25);
-    border-radius: 14px;
-    color: #e0f7fa;
-    padding: 12px;
+.doc-priority-select {
+    background: var(--ds-surface-alt);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-sm);
+    color: var(--ds-text);
+    padding: 10px 14px;
     font-size: 15px;
+    font-family: inherit;
     outline: none;
     cursor: pointer;
-    transition: 0.3s;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.doc-priority-select option{
-    color: #000; /* black text for readability */
-}
-
-.doc-priority-select:focus{
-    border-color: #00e5ff;
-    box-shadow: 0 0 12px rgba(0,229,255,0.25);
+.doc-priority-select:focus {
+    border-color: var(--ds-primary);
+    box-shadow: var(--ds-focus-ring);
 }
 
 /* Submit */
-.doc-submit-btn{
+.doc-submit-btn {
     align-self: flex-end;
-    background: linear-gradient(135deg, #00bfa5, #00e5ff);
+    background: var(--ds-accent);
     border: none;
-    padding: 12px 28px;
-    border-radius: 14px;
+    padding: 12px 26px;
+    border-radius: var(--ds-radius-md);
     font-weight: 600;
-    color: #002b33;
+    font-size: 15px;
+    color: #ffffff;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.doc-submit-btn:hover{
+.doc-submit-btn:hover {
+    background: var(--ds-accent-light);
     transform: translateY(-2px);
-    box-shadow: 0 0 18px rgba(0,229,255,0.5);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }

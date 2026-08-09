@@ -1,20 +1,29 @@
 body {
     margin: 0;
     padding: 40px; /* flattened: previously leaked in from static/styles.css's bare body{} rule */
-    font-family: Arial, sans-serif;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                url('/static/images/background.jpg');
+    box-sizing: border-box; /* bug fix: without this, the 40px padding was added on top of
+                                the explicit height below instead of being included in it */
+    background: var(--ds-page-bg-photo);
     background-size: cover;
-    background-position: top;
+    background-position: center;
     background-repeat: no-repeat;
-    height: 89vh;
+    background-attachment: fixed;
+    min-height: 100vh; /* bug fix: was a fixed `height: 89vh`, which (plus content-box padding)
+                           left the bottom of the viewport uncovered on most screens */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .overlay {
-    background: rgba(18, 20, 23, 0.7);
+    /* Pinned explicitly: design-system.css's universal box-sizing:border-box
+       reset now reaches this page (needed for --ds-page-bg-photo to resolve
+       below), but this panel's max-width was authored assuming content-box.
+       This keeps its rendered size byte-for-byte identical to before. */
+    box-sizing: content-box;
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+    box-shadow: var(--ds-shadow-lg);
     padding: 40px;
     border-radius: 10px;
     text-align: center;
@@ -41,15 +50,17 @@ body {
 }
 
 .nav-links a {
-    background: #00796b;
-    color: white;
+    background: var(--ds-accent);
+    color: #ffffff;
     padding: 12px 20px;
-    border-radius: 6px;
+    border-radius: var(--ds-radius-md);
     text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s;
+    font-weight: 600;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .nav-links a:hover {
-    background: #004d40;
+    background: var(--ds-accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
 }

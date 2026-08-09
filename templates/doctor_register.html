@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Doctor Registration</title>
-    <link rel="stylesheet" href="/static/css/doctor_register.css">
+    <link rel="stylesheet" href="/static/css/design-system.css?v=2">
+    <link rel="stylesheet" href="/static/css/doctor_register.css?v=2">
     <link rel="icon" type="image/x-icon" href="/static/favicon.png">
 </head>
 <body>
@@ -10,15 +11,11 @@
         <h1>Register Doctor</h1>
 
         {% if error %}
-        <div style="color: red; font-weight: bold;">
-            {{ error }}
-        </div>
+        <div class="error">{{ error }}</div>
         {% endif %}
 
         {% if message %}
-        <div style="color: green; font-weight: bold;">
-            {{ message }}
-        </div>
+        <div class="message">{{ message }}</div>
         {% endif %}
 
         <form action="/doctor/register" method="post">
