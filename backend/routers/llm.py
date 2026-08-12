@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Form, Request
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
 from llama_cpp import Llama
-from backend.services import BASE_DIR
+from backend.utils import BASE_DIR
 import os
 from fastapi.responses import JSONResponse
 

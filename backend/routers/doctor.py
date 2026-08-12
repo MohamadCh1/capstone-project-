@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.responses import RedirectResponse
 from backend.database import get_mysql_session
 from backend.repositories.doctor_repo import MySQLDoctorsRepo
-from backend.services import hash_password, verify_password
+from backend.security import hash_password, verify_password
 from decimal import Decimal
 from backend.schemas import DoctorCreate
 from pydantic import ValidationError

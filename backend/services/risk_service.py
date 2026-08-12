@@ -1,21 +1,22 @@
-import uuid
 import joblib
 import pandas as pd
-from typing import Dict, List, Optional
-from datetime import datetime
 import os
-from passlib.context import CryptContext
+from typing import Dict
 from datetime import datetime, timezone
-from decimal import Decimal
-import json
 
-pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
-BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
+from backend.utils import BASE_DIR
+
 THRESHOLDS_PATH = os.path.join(BASE_DIR, "..", "models", "calibrated_Logistic_regression_model_risk_thresholds.joblib")
-FEATURES_PATH = os.path.join(BASE_DIR,"..","models","calibrated_Logistic_regression_model_feature_columns.joblib")
-MODEL_PATH = os.path.join(BASE_DIR,"..","models","calibrated_Logistic_regression_model.joblib")
+FEATURES_PATH = os.path.join(BASE_DIR, "..", "models", "calibrated_Logistic_regression_model_feature_columns.joblib")
+MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "calibrated_Logistic_regression_model.joblib")
+
+# Loaded once at module import time (i.e. once per process), not once per
+# RiskService construction. LOW_TH/HIGH_TH already worked this way; MODEL and
+# FEATURE_COLS previously reloaded from disk in __init__ on every request.
 LOW_TH = joblib.load(THRESHOLDS_PATH)['low']
 HIGH_TH = joblib.load(THRESHOLDS_PATH)['high']
+MODEL = joblib.load(MODEL_PATH)
+FEATURE_COLS = joblib.load(FEATURES_PATH)
 
 def calculate_age(dob_int: int) -> int:
     dob = datetime.fromtimestamp(dob_int, tz=timezone.utc).date()
@@ -27,38 +28,27 @@ def calculate_age(dob_int: int) -> int:
     return age
 
 
-def to_serializable(obj):
-    if isinstance(obj, Decimal):
-        return float(obj)
-    return str(obj)  
-
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
-
 class RiskService:
     def __init__(self, patients_repo, prediction_repo):
-        self.model = joblib.load(MODEL_PATH)
-        self.feature_cols = joblib.load(FEATURES_PATH)
+        self.model = MODEL
+        self.feature_cols = FEATURE_COLS
         self.patients = patients_repo
         self.prediction_repo = prediction_repo
 
     def _assemble_df(self, payload: Dict) -> pd.DataFrame:
+        payload = dict(payload)  # work on a copy - don't mutate the caller's dict
         payload["RIDAGEYR"] = calculate_age(payload["RIDAGEYR"])
-        print(payload["RIDAGEYR"])
         missing = [c for c in self.feature_cols if c not in payload]
         if missing:
             raise ValueError(f"Missing features: {missing}")
         return pd.DataFrame([[payload[c] for c in self.feature_cols]], columns=self.feature_cols)
-    
+
     def _categorize(self, p: float) -> str:
         if p < LOW_TH: return "Low"
         if p < HIGH_TH: return "Medium"
         return "High"
 
-    def _explain(self, raw: Dict) -> List[str]:
+    def _explain(self, raw: Dict) -> str:
         report = []
         if "LBXGLU" in raw:
             val = raw["LBXGLU"]
@@ -148,88 +138,16 @@ class RiskService:
             "The good news is that many of these numbers can be improved with healthy habits and medical guidance. "
             "Small changes, like adjusting diet, increasing activity, or following your doctor’s advice, often make a big difference."
         )
-        print(report)
         return " ".join(report)
-    
+
     async def predict_and_record(self, patient_email: str, payload: Dict) -> Dict:
         df = self._assemble_df(payload)
         proba = float(self.model.predict_proba(df)[:, 1][0])
         category = self._categorize(proba)
         explanation = self._explain(payload)
-        await self.patients.update_risk(patient_email, category)
+
         await self.prediction_repo.insert_prediction(patient_email, proba, category, explanation)
+        await self.patients.update_risk(patient_email, category)
+
         return {"probability": round(proba, 4), "category": category,
                 "thresholds": {"low": LOW_TH, "high": HIGH_TH}, "explanation": explanation}
-
-class MedicalService:
-    def __init__(self, suggestions_repo):
-        self.suggestions = suggestions_repo
-
-    async def generate_suggestions(
-        self,
-        patient_email: str,
-        hba1c: float,
-        glucose: float,
-        bmi: float,
-        sbp: int
-    ) -> List[Dict]:
-
-        def make_suggestion(details: str, priority: str) -> Dict:
-            return {
-                "id": str(uuid.uuid4()),
-                "patient_email": patient_email,
-                "source_type": "ai",
-                "category": "medication",
-                "details": {"text": details},  # dict form
-                "priority": priority,
-                "status": "proposed"
-            }
-
-        suggestions: List[Dict] = []
-
-        # HbA1c rules
-        if hba1c >= 10:
-            suggestions.append(make_suggestion(
-                "Start basal insulin at 10 units/day and continue metformin 1000 mg twice daily.",
-                "high"
-            ))
-        elif hba1c >= 9:
-            suggestions.append(make_suggestion(
-                "Initiate triple therapy: metformin 1000 mg twice daily, empagliflozin 10 mg daily, and liraglutide titrated to 1.8 mg.",
-                "high"
-            ))
-        elif hba1c >= 7.5:
-            suggestions.append(make_suggestion(
-                "Begin dual therapy: metformin 1000 mg twice daily and empagliflozin 10 mg daily.",
-                "medium"
-            ))
-        elif hba1c >= 6.5:
-            suggestions.append(make_suggestion(
-                "Start metformin 500 mg twice daily and titrate to 1000 mg twice daily as tolerated.",
-                "low"
-            ))
-
-        # Glucose rule
-        if glucose >= 126 and hba1c < 6.5:
-            suggestions.append(make_suggestion(
-                "Start metformin 500 mg twice daily for impaired fasting glucose.",
-                "low"
-            ))
-
-        # BMI rule
-        if bmi >= 30:
-            suggestions.append(make_suggestion(
-                "Add semaglutide 0.25 mg weekly, titrate to 1 mg weekly for weight reduction.",
-                "medium"
-            ))
-
-        # SBP rule
-        if sbp >= 140:
-            suggestions.append(make_suggestion(
-                "Add lisinopril 10 mg daily or losartan 50 mg daily for hypertension control.",
-                "high"
-            ))
-
-        if suggestions:
-            await self.suggestions.add_many(patient_email, suggestions)
-        return suggestions

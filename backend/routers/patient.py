@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse
 from backend.schemas import PatientCreate, map_patient_to_db, ETHNICITY_MAP, GENDER_MAP
 from backend.repositories.patient_repo import MySQLPatientsRepo
 from backend.repositories.device_repo import MySQLDevicesRepo
-from backend.services import hash_password, verify_password
+from backend.security import hash_password, verify_password
 from backend.database import get_mysql_session
 from backend.repositories.doctor_repo import MySQLDoctorsRepo
 

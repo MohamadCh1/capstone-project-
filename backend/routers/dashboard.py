@@ -2,7 +2,9 @@ from fastapi import APIRouter, Request, Depends
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
-from backend.services import RiskService, to_serializable, MedicalService
+from backend.services.risk_service import RiskService
+from backend.services.suggestion_service import MedicalService
+from backend.utils import to_serializable
 from backend.repositories.measurements_repo import MeasurementsRepo
 from backend.repositories.patient_repo import MySQLPatientsRepo
 from backend.database import get_pg_session, get_mysql_session, pg_session_factory, mysql_session_factory
