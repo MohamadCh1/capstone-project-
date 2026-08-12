@@ -58,3 +58,4 @@ venv/
 # project-specific: not tracked in git
 CLAUDE.md
 outputs/
+.env

@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request,status
 from fastapi.exceptions import RequestValidationError
 from fastapi.templating import Jinja2Templates
@@ -6,9 +8,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
 
+load_dotenv()
+
 app = FastAPI(title="Agentic AI Healthcare System")
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
+app.add_middleware(SessionMiddleware, secret_key=os.environ["SECRET_KEY"])
 templates = Jinja2Templates(directory="templates")
 
 
