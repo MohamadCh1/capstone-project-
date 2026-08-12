@@ -83,7 +83,7 @@ class MySQLSuggestionsRepo:
     
     async def get_all_for_doctor(self, patient_email: str) -> List[Dict]:
         result = await self.session.execute(
-            text("SELECT * FROM suggestions WHERE patient_email = :pid AND status = 'active' or status = 'proposed'"),
+            text("SELECT * FROM suggestions WHERE patient_email = :pid AND (status = 'active' or status = 'proposed')"),
             {"pid": patient_email}
         )
         rows = result.fetchall()
